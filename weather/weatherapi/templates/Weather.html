@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Material Design for Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+  <!-- MDB -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap-weather.min.css'%}"/>
+  <style>
+    body{
+      background: linear-gradient(90deg, #7474BF 10%, #348AC7 90%);
+    }
+    .card{
+      background-image: url('{% static "img/images.jpeg" %}');
+      background-size: cover;
+      align-content: center;
+      width: 400px;
+      margin-left: 970px;
+      padding-top: 20px;
+      border-radius: 5%;
+      height: 330px;
+      margin-top: 30px;
+
+      
+     
+    }
+    .card img{
+      position: relative;
+      width: 100px;
+    }
+    .card-body{
+      box-sizing: border-box;
+      
+    
+      
+    }
+    .form-control{
+      width: 800px;
+      border-radius: 10px;
+      border: 1px solid;
+      height: 70px;
+      margin-bottom: 30px;
+    }
+    .nav{
+      background: linear-gradient(90deg, #1818f3 10%, #34c734 90%);
+      color: #000;
+      font-size: large;
+      width: 100%;
+      height: 150px;
+      margin-bottom: 30px;
+      padding-top: 20px;
+      margin-top: 0;
+    }
+    button{
+      width: 200px;
+      height: 40px;
+      background-color: black;
+      color: #FFF;
+      border-radius:9%;
+      border: 1px solid #000;
+    }
+    button:hover{
+      background-color: transparent;
+      color:#000;
+    }
+  </style>
+</head>
+
+<body >
+  <!-- Start your project here-->
+  <div class="container my-3" style="text-align: center;">
+    <section class="vh-100">
+      <div class="container py-5 h-100">
+
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-md-8 col-lg-6 col-xl-4">
+            <div class="nav">
+              <h1 class="mb-4 pb-2 fw-normal">Check the weather forecast</h1>
+            </div>
+            <form  method="post" class="input-group rounded mb-3">
+              {% csrf_token %}
+              <div  class="container_input">
+                {{ form.name }}
+              </div>
+              <button class="input-group-text border-0 fw-bold" type="submit"  id="search-addon">Check!</button>
+            </form>
+            {% for data in weather_data %}
+            <div class="card shadow-0 border">
+              <div class="card-body p-4">
+                  <h2 class="mb-1 sfw-normal">{{ data.city }},{{ data.contry_code }}</h2>
+                  <p class="mb-2">Current temperature: <strong>{{ data.temp }}°C</strong></p>
+                  <p>Feels like: <strong>{{ data.feels_like }}°C</strong></p>
+                  <p>Max: <strong>{{ data.temp_max }}°C</strong>, Min: <strong>{{ data.temp_min }}°C</strong></p>
+      
+                  <div class="d-flex flex-row align-items-center">
+                    <p class="mb-0 me-4">{{ data.desc }}</p>
+                    <div id="icon">
+                    <img id="wicon" src="http://api.openweathermap.org/img/w/{{ data.icon }}.png">
+                    </div>
+                  </div>
+
+
+              </div>
+            </div>
+            {% endfor %}
+            
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+
+  <!-- End your project here-->
+
+ 
+  <!-- Custom scripts -->
+  <script type="text/javascript"></script>
+</body>
+
+</html>
